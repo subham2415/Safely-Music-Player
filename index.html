@@ -3,25 +3,56 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Music Player thats help all SLT People</title>
+  <title>Stealth Stream Player 🎧</title>
 
-  <!-- Tailwind (CDN) -->
+  <!-- Tailwind (for dev use CDN, fine for GitHub Pages) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
-    :root{
+    :root {
       --accent: #10B981;
       --glass: rgba(255,255,255,0.06);
     }
-    body { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
-    .player-card { background: var(--glass); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.06); }
-    .thumb { width: 220px; height: 220px; object-fit: cover; border-radius: 12px; }
-    input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; height: 14px; width: 14px; border-radius: 999px; background: var(--accent); box-shadow: 0 0 10px #10B98155; }
-    .track-item.active { background: rgba(16,185,129,0.12); border-left: 4px solid var(--accent); }
-    .transition-smooth { transition: all .25s ease; }
-    .bg-animated { background: linear-gradient(120deg,#0f172a,#0b3a5b,#064e3b); background-size:400% 400%; animation: bgMove 14s ease infinite; }
-    @keyframes bgMove { 0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%} }
+    body {
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    .player-card {
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .thumb {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 14px;
+      width: 14px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 10px #10B98155;
+    }
+    .track-item.active {
+      background: rgba(16,185,129,0.12);
+      border-left: 4px solid var(--accent);
+    }
+    .transition-smooth {
+      transition: all .25s ease;
+    }
+    .bg-animated {
+      background: linear-gradient(120deg,#0f172a,#0b3a5b,#064e3b);
+      background-size:400% 400%;
+      animation: bgMove 14s ease infinite;
+    }
+    @keyframes bgMove {
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
   </style>
 </head>
 <body class="min-h-screen bg-animated text-slate-100 flex items-center justify-center p-6">
@@ -29,19 +60,14 @@
   <div class="w-full max-w-3xl mx-auto">
     <div class="flex justify-between items-center mb-4">
       <h1 class="text-2xl font-extrabold mb-4 text-emerald-400">Stealth Stream Player</h1>
-
-        <p class="text-sm text-gray-400 mb-4 italic animate-pulse">
-  Keeping productivity high… and volume higher 🔊👨‍💻
-</p>
-
-
+      <p class="text-sm text-gray-400 mb-4 italic animate-pulse">Keeping productivity high… and volume higher 🔊👨‍💻</p>
       <div class="flex items-center gap-2">
         <button id="themeToggle" class="p-2 rounded-full bg-white/5 transition-smooth" title="Toggle theme">🌙</button>
       </div>
     </div>
 
     <div class="player-card rounded-2xl p-6 shadow-2xl grid grid-cols-1 md:grid-cols-3 gap-6 transition-smooth">
-      <!-- Left: Artwork + basic info -->
+      <!-- Left: Artwork -->
       <div class="col-span-1 flex flex-col items-center gap-4">
         <img id="cover" class="thumb shadow-lg transition-smooth" src="https://placehold.co/400x400/111111/ffffff?text=Stealth" alt="cover">
         <div class="text-center">
@@ -64,7 +90,6 @@
           <button id="playBtn" class="p-4 rounded-full bg-emerald-500 hover:bg-emerald-400 shadow-lg text-black text-xl transition-smooth">▶️</button>
           <button id="nextBtn" class="p-3 rounded-lg bg-white/5 hover:bg-white/8 transition-smooth">⏭️</button>
         </div>
-
         <div class="w-full px-6">
           <div class="flex items-center gap-3 text-sm text-slate-300">
             <span>🔈</span>
@@ -72,7 +97,6 @@
             <span>🔊</span>
           </div>
         </div>
-
         <div class="w-full px-6">
           <input id="search" placeholder="Search Jamendo (artist / track)..." class="w-full p-2 rounded-lg bg-white/5 placeholder:text-slate-400 focus:outline-none" />
         </div>
@@ -84,277 +108,189 @@
           <h3 class="text-sm font-semibold text-slate-200">Playlist / Results</h3>
           <div id="status" class="text-xs text-slate-400">—</div>
         </div>
-        <div id="playlist" class="max-h-72 overflow-y-auto space-y-2">
-          <!-- items injected here -->
-        </div>
+        <div id="playlist" class="max-h-72 overflow-y-auto space-y-2"></div>
       </div>
     </div>
 
-    <footer class="mt-4 text-xs text-slate-300 text-center">Developed by <strong class="text-emerald-400">Corporate Delivery Person</strong>
-      <p class="text-sm text-gray-400 mb-2 italic">
-    When your Manager blocks Spotify, but not your brain 🧠🎶
-  </p>
-    
-    
+    <footer class="mt-4 text-xs text-slate-300 text-center">
+      Developed by <strong class="text-emerald-400">Corporate Delivery Person</strong>
+      <p class="text-sm text-gray-400 mb-2 italic">When your Manager blocks Spotify, but not your brain 🧠🎶</p>
     </footer>
   </div>
 
-<script>
-/* ========================
-   CONFIG — your Jamendo Client ID
-   ======================== */
-const JAMENDO_CLIENT_ID = '51495fd1'; // you provided this
-const AUDIO_FORMAT = 'mp32'; // good quality streaming
-const IMAGE_SIZE = 300;
+  <script>
+    const JAMENDO_CLIENT_ID = '51495fd1';
+    const PROXY_URL = 'https://corsproxy.io/?';
+    const AUDIO_FORMAT = 'mp32';
+    const IMAGE_SIZE = 300;
 
-/* ========================
-   DOM refs
-   ======================== */
-const coverEl = document.getElementById('cover');
-const titleEl = document.getElementById('now-title');
-const artistEl = document.getElementById('now-artist');
-const curTimeEl = document.getElementById('curTime');
-const durTimeEl = document.getElementById('durTime');
-const seekEl = document.getElementById('seek');
-const playBtn = document.getElementById('playBtn');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
-const volEl = document.getElementById('volume');
-const searchEl = document.getElementById('search');
-const playlistEl = document.getElementById('playlist');
-const statusEl = document.getElementById('status');
-const themeToggle = document.getElementById('themeToggle');
+    const coverEl = document.getElementById('cover');
+    const titleEl = document.getElementById('now-title');
+    const artistEl = document.getElementById('now-artist');
+    const curTimeEl = document.getElementById('curTime');
+    const durTimeEl = document.getElementById('durTime');
+    const seekEl = document.getElementById('seek');
+    const playBtn = document.getElementById('playBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const volEl = document.getElementById('volume');
+    const searchEl = document.getElementById('search');
+    const playlistEl = document.getElementById('playlist');
+    const statusEl = document.getElementById('status');
+    const themeToggle = document.getElementById('themeToggle');
 
-let audio = new Audio();
-audio.crossOrigin = "anonymous";
-let results = [];        // current list of tracks (objects from Jamendo)
-let current = -1;        // index in results
-let isPlaying = false;
-let updater = null;
+    let audio = new Audio();
+    audio.crossOrigin = "anonymous";
+    let results = [];
+    let current = -1;
+    let isPlaying = false;
 
-/* ========================
-   UTILS
-   ======================== */
-function formatTime(s){
-  if (!s || isNaN(s)) return '0:00';
-  const m = Math.floor(s / 60);
-  const sec = Math.floor(s % 60).toString().padStart(2,'0');
-  return `${m}:${sec}`;
-}
-function setStatus(txt){ statusEl.textContent = txt; }
+    function formatTime(s) {
+      if (!s || isNaN(s)) return '0:00';
+      const m = Math.floor(s / 60);
+      const sec = Math.floor(s % 60).toString().padStart(2, '0');
+      return `${m}:${sec}`;
+    }
+    function setStatus(txt){ statusEl.textContent = txt; }
 
-/* ========================
-   JAMENDO SEARCH + LOAD
-   docs: tracks endpoint returns 'audio' and 'image' fields.
-   ======================== */
-async function jamendoSearch(query, limit=25){
-  setStatus('Searching...');
-  const base = 'https://api.jamendo.com/v3.0/tracks/';
-  const params = new URLSearchParams({
-    client_id: JAMENDO_CLIENT_ID,
-    format: 'json',
-    limit: limit,
-    namesearch: query || '',
-    audioformat: AUDIO_FORMAT,
-    imagesize: IMAGE_SIZE,
-    order: 'popularity'
-  });
-  const url = base + '?' + params.toString();
-  try {
-    const res = await fetch(url);
-    const data = await res.json();
-    // data.results is an array of tracks
-    return data.results || [];
-  } catch(err){
-    console.error('Jamendo fetch error', err);
-    setStatus('Network / API error');
-    return [];
-  }
-}
+    async function jamendoSearch(query='', limit=25){
+      setStatus('Searching...');
+      const url = `${PROXY_URL}https://api.jamendo.com/v3.0/tracks/?client_id=${JAMENDO_CLIENT_ID}&format=json&limit=${limit}&namesearch=${encodeURIComponent(query)}&audioformat=${AUDIO_FORMAT}&imagesize=${IMAGE_SIZE}&order=popularity`;
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        return data.results || [];
+      } catch(e){
+        console.error(e);
+        setStatus('⚠️ API/Network error');
+        return [];
+      }
+    }
 
-/* ========================
-   RENDERING + PLAYBACK
-   ======================== */
-function renderPlaylist(list){
-  playlistEl.innerHTML = '';
-  if(!list.length){
-    playlistEl.innerHTML = '<div class="text-center text-slate-400 p-4">No results</div>';
-    return;
-  }
-  list.forEach((t, idx) => {
-    const div = document.createElement('div');
-    const isActive = (idx === current);
-    div.className = 'p-3 rounded-md transition-smooth cursor-pointer track-item ' + (isActive ? 'active' : 'hover:bg-white/3');
-    div.innerHTML = `<div class="flex justify-between items-start">
-      <div class="truncate">
-        <div class="font-semibold text-sm ${isActive ? 'text-emerald-300' : 'text-slate-100'}">${t.name}</div>
-        <div class="text-xs text-slate-400 truncate">${t.artist_name} • ${formatTime(t.duration)}</div>
-      </div>
-      <div class="ml-3 text-xs text-slate-300">${t.audiodownload ? '' : ''}</div>
-    </div>`;
-    div.onclick = () => {
-      playIndex(idx);
+    function renderPlaylist(list){
+      playlistEl.innerHTML = '';
+      if(!list.length){
+        playlistEl.innerHTML = '<div class="text-center text-slate-400 p-4">No results</div>';
+        return;
+      }
+      list.forEach((t, i) => {
+        const div = document.createElement('div');
+        const active = i === current;
+        div.className = 'p-3 rounded-md transition-smooth cursor-pointer track-item ' + (active ? 'active' : 'hover:bg-white/3');
+        div.innerHTML = `
+          <div class="flex justify-between items-start">
+            <div class="truncate">
+              <div class="font-semibold text-sm ${active ? 'text-emerald-300' : 'text-slate-100'}">${t.name}</div>
+              <div class="text-xs text-slate-400 truncate">${t.artist_name} • ${formatTime(t.duration)}</div>
+            </div>
+          </div>`;
+        div.onclick = () => playIndex(i);
+        playlistEl.appendChild(div);
+      });
+    }
+
+    function loadToPlayer(track){
+      audio.src = track.audio;
+      coverEl.src = track.image || `https://placehold.co/300x300/111111/ffffff?text=${encodeURIComponent(track.name)}`;
+      titleEl.textContent = track.name;
+      artistEl.textContent = track.artist_name;
+      audio.onloadedmetadata = () => {
+        durTimeEl.textContent = formatTime(audio.duration);
+        seekEl.max = Math.floor(audio.duration || 0);
+      };
+    }
+
+    function playIndex(i){
+      current = i;
+      loadToPlayer(results[i]);
+      renderPlaylist(results);
+      playAudio();
+    }
+
+    function playAudio(){
+      audio.play().then(()=>{
+        isPlaying = true;
+        playBtn.textContent = '⏸️';
+        setStatus('Playing');
+      }).catch(()=>setStatus('Tap Play to start'));
+    }
+    function pauseAudio(){
+      audio.pause();
+      isPlaying = false;
+      playBtn.textContent = '▶️';
+      setStatus('Paused');
+    }
+    function nextTrack(){
+      if(!results.length) return;
+      current = (current + 1) % results.length;
+      playIndex(current);
+    }
+    function prevTrack(){
+      if(!results.length) return;
+      current = (current - 1 + results.length) % results.length;
+      playIndex(current);
+    }
+
+    audio.ontimeupdate = () => {
+      curTimeEl.textContent = formatTime(audio.currentTime);
+      seekEl.value = Math.floor(audio.currentTime || 0);
     };
-    playlistEl.appendChild(div);
-  });
-}
+    audio.onended = nextTrack;
 
-function loadToPlayer(trackObj){
-  if(!trackObj) return;
-  // Jamendo provides 'audio' (stream URL) and 'image' fields in track object
-  audio.src = trackObj.audio;
-  coverEl.src = trackObj.image || `https://placehold.co/300x300/111111/ffffff?text=${encodeURIComponent(trackObj.name)}`;
-  titleEl.textContent = trackObj.name;
-  artistEl.textContent = trackObj.artist_name;
-  audio.load();
-  // update duration after metadata loaded
-  audio.onloadedmetadata = () => {
-    durTimeEl.textContent = formatTime(audio.duration);
-    seekEl.max = Math.floor(audio.duration || 0);
-  };
-}
+    seekEl.addEventListener('input', () => audio.currentTime = seekEl.value);
+    volEl.addEventListener('input', () => audio.volume = volEl.value / 100);
+    playBtn.addEventListener('click', () => isPlaying ? pauseAudio() : playAudio());
+    nextBtn.addEventListener('click', nextTrack);
+    prevBtn.addEventListener('click', prevTrack);
 
-function playIndex(i){
-  if(i < 0 || i >= results.length) return;
-  current = i;
-  loadToPlayer(results[current]);
-  renderPlaylist(results);
-  playAudio();
-}
+    function debounce(fn, delay=300){
+      let timer; 
+      return (...args)=>{ clearTimeout(timer); timer=setTimeout(()=>fn(...args),delay); };
+    }
 
-function playAudio(){
-  audio.play().then(()=> {
-    isPlaying = true;
-    playBtn.textContent = '⏸️';
-    setStatus('Playing');
-  }).catch(err => {
-    console.warn('play failed', err);
-    setStatus('Playback blocked by browser (tap play)');
-  });
-}
-function pauseAudio(){
-  audio.pause();
-  isPlaying = false;
-  playBtn.textContent = '▶️';
-  setStatus('Paused');
-}
+    const performSearch = debounce(async (q)=>{
+      results = await jamendoSearch(q, 30);
+      results = results.map(r=>({
+        name:r.name, artist_name:r.artist_name,
+        audio:r.audio, image:r.album_image, duration:r.duration
+      })).filter(r=>r.audio);
+      if(!results.length){ setStatus('No results'); return; }
+      renderPlaylist(results);
+      playIndex(0);
+      setStatus(`${results.length} tracks`);
+    });
 
-function nextTrack(){
-  if(results.length === 0) return;
-  current = (current + 1) % results.length;
-  playIndex(current);
-}
-function prevTrack(){
-  if(results.length === 0) return;
-  current = (current - 1 + results.length) % results.length;
-  playIndex(current);
-}
+    searchEl.addEventListener('input', e => performSearch(e.target.value));
 
-/* ========================
-   Seek / Volume / Time updates
-   ======================== */
-audio.ontimeupdate = () => {
-  curTimeEl.textContent = formatTime(audio.currentTime);
-  seekEl.value = Math.floor(audio.currentTime || 0);
-};
-audio.onended = () => { nextTrack(); };
+    // Theme toggle
+    function setTheme(dark){
+      if(dark){
+        document.body.classList.add('bg-animated','text-slate-100');
+        document.body.classList.remove('bg-white','text-black');
+        themeToggle.textContent='🌙';
+        localStorage.setItem('theme','dark');
+      } else {
+        document.body.classList.remove('bg-animated','text-slate-100');
+        document.body.classList.add('bg-white','text-black');
+        themeToggle.textContent='☀️';
+        localStorage.setItem('theme','light');
+      }
+    }
+    themeToggle.addEventListener('click',()=>setTheme(!document.body.classList.contains('bg-animated')));
+    setTheme(localStorage.getItem('theme')!=='light');
 
-seekEl.addEventListener('input', () => {
-  audio.currentTime = Number(seekEl.value || 0);
-});
-volEl.addEventListener('input', () => {
-  audio.volume = volEl.value / 100;
-});
-
-/* ========================
-   Buttons & search
-   ======================== */
-playBtn.addEventListener('click', () => {
-  if(!audio.src){
-    // nothing loaded — if results exist play first
-    if(results.length) playIndex(0);
-    else performSearch('top');
-    return;
-  }
-  if(isPlaying) pauseAudio(); else playAudio();
-});
-nextBtn.addEventListener('click', nextTrack);
-prevBtn.addEventListener('click', prevTrack);
-
-/* debounce helper */
-function debounce(fn, ms=300){
-  let t;
-  return (...args) => { clearTimeout(t); t = setTimeout(()=>fn(...args), ms); };
-}
-
-const performSearch = debounce(async (q) => {
-  if(!q || q.trim().length === 0){
-    // show trending/popular (simple fallback)
-    setStatus('Loading popular...');
-    results = await jamendoSearch('', 20);
-  } else {
-    setStatus('Searching "' + q + '"...');
-    results = await jamendoSearch(q, 40);
-  }
-  // Map/ensure fields we expect: audio, image, name, artist_name, duration
-  results = results.map(r => ({
-    name: r.name || r.track_name || 'Unknown',
-    artist_name: r.artist_name || r.artist,
-    audio: r.audio || r.audio_download || r.audiodownload,
-    image: r.image || r.album_image || r.album_image,
-    duration: r.duration || 0,
-    id: r.id || r.track_id
-  })).filter(r => r.audio); // keep only items with audio
-  if(results.length === 0) setStatus('No results');
-  else setStatus(results.length + ' tracks');
-  current = -1;
-  renderPlaylist(results);
-  // auto-load first if results available
-  if(results.length) {
-    playIndex(0);
-  }
-}, 350);
-
-searchEl.addEventListener('input', (e) => { performSearch(e.target.value); });
-
-/* ========================
-   Theme toggle (light/dark)
-   ======================== */
-function setTheme(isDark){
-  if(isDark){
-    document.documentElement.classList.remove('bg-white','text-black');
-    document.body.classList.add('bg-animated','text-slate-100');
-    themeToggle.textContent = '🌙';
-    localStorage.setItem('theme','dark');
-  } else {
-    document.body.classList.remove('bg-animated');
-    document.body.classList.add('bg-white','text-black');
-    themeToggle.textContent = '☀️';
-    localStorage.setItem('theme','light');
-  }
-}
-themeToggle.addEventListener('click', () => setTheme(!document.body.classList.contains('bg-animated')));
-setTheme(localStorage.getItem('theme') !== 'light');
-
-/* ========================
-   Init: load popular tracks
-   ======================== */
-(async function init(){
-  setStatus('Initializing...');
-  results = await jamendoSearch('', 20);
-  results = results.map(r => ({
-    name: r.name || r.track_name || 'Unknown',
-    artist_name: r.artist_name || r.artist,
-    audio: r.audio || r.audio_download || r.audiodownload,
-    image: r.image || r.album_image || r.album_image,
-    duration: r.duration || 0,
-    id: r.id || r.track_id
-  })).filter(r => r.audio);
-  renderPlaylist(results);
-  if(results.length) playIndex(0);
-  setStatus('Ready');
-})();
-</script>
-
+    // Initial load
+    (async function init(){
+      setStatus('Loading popular tracks...');
+      results = await jamendoSearch('', 20);
+      results = results.map(r=>({
+        name:r.name, artist_name:r.artist_name,
+        audio:r.audio, image:r.album_image, duration:r.duration
+      })).filter(r=>r.audio);
+      renderPlaylist(results);
+      if(results.length) playIndex(0);
+      setStatus('Ready');
+    })();
+  </script>
 </body>
 </html>
